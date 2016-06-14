@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Goods list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for good in goods %}
+            <tr>
+                <td><a href="{{ path('_show', { 'id': good.id }) }}">{{ good.id }}</a></td>
+                <td>{{ good.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('_show', { 'id': good.id }) }}">show</a>
+                        </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="{{ path('_edit', { 'id': good.id }) }}">edit</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% if is_granted('ROLE_ADMIN') %}
+    <ul>
+        <li>
+            <a href="{{ path('_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+    {% endif %}
+{% endblock %}
