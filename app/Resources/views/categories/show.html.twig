@@ -20,6 +20,7 @@
         <li>
             <a href="{{ path('categories_index') }}">Back to the list</a>
         </li>
+         {% if is_granted('ROLE_ADMIN') %}
         <li>
             <a href="{{ path('categories_edit', { 'id': category.id }) }}">Edit</a>
         </li>
@@ -28,5 +29,6 @@
                 <input type="submit" value="Delete">
             {{ form_end(delete_form) }}
         </li>
+        {% endif %}
     </ul>
 {% endblock %}

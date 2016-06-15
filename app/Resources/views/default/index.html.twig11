@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Categories list</h1>
+    <h1>Goods list</h1>
 
     <table>
         <thead>
@@ -12,18 +12,18 @@
             </tr>
         </thead>
         <tbody>
-        {% for category in categories %}
+        {% for good in goods %}
             <tr>
-                <td><a href="{{ path('categories_show', { 'id': category.id }) }}">{{ category.id }}</a></td>
-                <td>{{ category.name }}</td>
+                <td><a href="{{ path('_show', { 'id': good.id }) }}">{{ good.id }}</a></td>
+                <td>{{ good.name }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('categories_show', { 'id': category.id }) }}">show</a>
+                            <a href="{{ path('_show', { 'id': good.id }) }}">show</a>
                         </li>
-                         {% if is_granted('ROLE_ADMIN') %}
+                        {% if is_granted('ROLE_ADMIN') %}
                         <li>
-                            <a href="{{ path('categories_edit', { 'id': category.id }) }}">edit</a>
+                            <a href="{{ path('_edit', { 'id': good.id }) }}">edit</a>
                         </li>
                         {% endif %}
                     </ul>
@@ -35,7 +35,7 @@
 {% if is_granted('ROLE_ADMIN') %}
     <ul>
         <li>
-            <a href="{{ path('categories_new') }}">Create a new entry</a>
+            <a href="{{ path('_new') }}">Create a new entry</a>
         </li>
     </ul>
     {% endif %}
