@@ -26,6 +26,7 @@ class GoodsController extends Controller
      */
     public function indexAction()
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $goods = $em->getRepository('AppBundle:Goods')->findAll();
@@ -72,10 +73,12 @@ class GoodsController extends Controller
      */
     public function showAction(Goods $good)
     {
+        
         $deleteForm = $this->createDeleteForm($good);
 
         return $this->render('goods/show.html.twig', array(
             'good' => $good,
+            
             'delete_form' => $deleteForm->createView(),
         ));
     }
