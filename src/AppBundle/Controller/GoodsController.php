@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Goods;
 use AppBundle\Form\GoodsType;
+use AppBundle\Entity\Categories;
 
 /**
  * Goods controller.
@@ -20,7 +21,7 @@ class GoodsController extends Controller
     /**
      * Lists all Goods entities.
      *
-     * @Route("/", name="_index")
+     * @Route("/", name="goods_index")
      * @Method("GET")
      */
     public function indexAction()
@@ -31,18 +32,20 @@ class GoodsController extends Controller
 
         return $this->render('goods/index.html.twig', array(
             'goods' => $goods,
+            
         ));
     }
 
     /**
      * Creates a new Goods entity.
      *
-     * @Route("/new", name="_new")
+     * @Route("/new", name="goods_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $good = new Goods();
         $form = $this->createForm('AppBundle\Form\GoodsType', $good);
         $form->handleRequest($request);
@@ -52,7 +55,7 @@ class GoodsController extends Controller
             $em->persist($good);
             $em->flush();
 
-            return $this->redirectToRoute('_show', array('id' => $good->getId()));
+            return $this->redirectToRoute('goods_show', array('id' => $good->getId()));
         }
 
         return $this->render('goods/new.html.twig', array(
@@ -64,7 +67,7 @@ class GoodsController extends Controller
     /**
      * Finds and displays a Goods entity.
      *
-     * @Route("/{id}", name="_show")
+     * @Route("/{id}", name="goods_show")
      * @Method("GET")
      */
     public function showAction(Goods $good)
@@ -80,12 +83,12 @@ class GoodsController extends Controller
     /**
      * Displays a form to edit an existing Goods entity.
      *
-     * @Route("/{id}/edit", name="_edit")
+     * @Route("/{id}/edit", name="goods_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Goods $good)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $deleteForm = $this->createDeleteForm($good);
         $editForm = $this->createForm('AppBundle\Form\GoodsType', $good);
         $editForm->handleRequest($request);
@@ -95,7 +98,7 @@ class GoodsController extends Controller
             $em->persist($good);
             $em->flush();
 
-            return $this->redirectToRoute('_edit', array('id' => $good->getId()));
+            return $this->redirectToRoute('goods_edit', array('id' => $good->getId()));
         }
 
         return $this->render('goods/edit.html.twig', array(
@@ -108,7 +111,7 @@ class GoodsController extends Controller
     /**
      * Deletes a Goods entity.
      *
-     * @Route("/{id}", name="_delete")
+     * @Route("/{id}", name="goods_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Goods $good)
@@ -123,7 +126,7 @@ class GoodsController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('_index');
+        return $this->redirectToRoute('goods_index');
     }
 
     /**
@@ -136,7 +139,7 @@ class GoodsController extends Controller
     private function createDeleteForm(Goods $good)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('_delete', array('id' => $good->getId())))
+            ->setAction($this->generateUrl('goods_delete', array('id' => $good->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

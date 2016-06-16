@@ -41,7 +41,6 @@ class CategoriesController extends Controller
      */
     public function newAction(Request $request)
     {
-         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $category = new Categories();
         $form = $this->createForm('AppBundle\Form\CategoriesType', $category);
         $form->handleRequest($request);

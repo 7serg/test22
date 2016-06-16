@@ -67,49 +67,4 @@ class Categories
     {
         return $this->name;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->goods = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add good
-     *
-     * @param \AppBundle\Entity\Goods $good
-     *
-     * @return Categories
-     */
-    public function addGood(\AppBundle\Entity\Goods $good)
-    {
-        $this->goods[] = $good;
-
-        return $this;
-    }
-
-    /**
-     * Remove good
-     *
-     * @param \AppBundle\Entity\Goods $good
-     */
-    public function removeGood(\AppBundle\Entity\Goods $good)
-    {
-        $this->goods->removeElement($good);
-    }
-
-    /**
-     * Get goods
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getGoods()
-    {
-        return $this->goods;
-    }
-    public function __toString()
-    {
-        return $this->name;
-    }
 }
